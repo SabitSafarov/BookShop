@@ -10,12 +10,12 @@ public class Book {
     private String publisher;
     private Integer pageCounts;
     private String genre;
-    private Date publishingDate;
+    private int publishingDate;
     private double costPrice;
     private double salePrice;
     private boolean isSequel;
 
-    public Book(Integer id, String name, String author, String publisher, Integer pageCounts, String genre, Date publishingDate,
+    public Book(Integer id, String name, String author, String publisher, Integer pageCounts, String genre, int publishingDate,
                 double costPrice, double salePrice, boolean isSequel) {
         this.id = id;
         this.name = name;
@@ -53,7 +53,7 @@ public class Book {
         return genre;
     }
 
-    public Date getPublishingDate() {
+    public int getPublishingDate() {
         return publishingDate;
     }
 
@@ -93,7 +93,7 @@ public class Book {
         this.genre = genre;
     }
 
-    public void setPublishingDate(Date publishingDate) {
+    public void setPublishingDate(int publishingDate) {
         this.publishingDate = publishingDate;
     }
 
