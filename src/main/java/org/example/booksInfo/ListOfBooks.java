@@ -27,15 +27,15 @@ public class ListOfBooks {
         }
     }
 
-    public static void addBook() {
+    public void addBook() {
         BookAddDeleteEdit.addBook(books);
     }
 
-    public static void deleteBook() {
+    public void deleteBook() {
         BookAddDeleteEdit.deleteBook(books);
     }
 
-    public static void editBook() {
+    public void editBook() {
         BookAddDeleteEdit.editBook(books);
     }
 }

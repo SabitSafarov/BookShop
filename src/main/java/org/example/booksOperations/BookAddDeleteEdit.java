@@ -1,5 +1,6 @@
 package org.example.booksOperations;
 
+import org.apache.commons.text.WordUtils;
 import org.example.booksInfo.Book;
 import org.example.booksInfo.ListOfBooks;
 
@@ -41,9 +42,9 @@ public class BookAddDeleteEdit {
         String genre = "";
         while (genre.isEmpty()) {
             System.out.println("Выберите жанр книги: \n" +
-                                "[1] - Роман\n[2] - Повесть\n[3] - Рассказ\n" +
-                                "[4] - Сказки\n[5] - Лирика\n[6] - Трагедия\n" +
-                                "[7] - Комедия\n[8] - Драма\n[9] - Поэма\n");
+                    "[1] - Роман\n[2] - Повесть\n[3] - Рассказ\n" +
+                    "[4] - Сказки\n[5] - Лирика\n[6] - Трагедия\n" +
+                    "[7] - Комедия\n[8] - Драма\n[9] - Поэма\n");
             int input = Integer.parseInt(scr.nextLine());
             switch (input) {
                 case 1 -> genre = "Роман";
@@ -60,7 +61,8 @@ public class BookAddDeleteEdit {
         }
 
         System.out.print("Введите год издания: ");
-        int publishingDate = Integer.parseInt(scr.nextLine());;
+        int publishingDate = Integer.parseInt(scr.nextLine());
+        ;
 
         System.out.print("Введите себестоимость книги: ");
         double costPrice = Double.parseDouble(scr.nextLine());
@@ -86,14 +88,170 @@ public class BookAddDeleteEdit {
         }
 
         books.add(new Book(id, name, author, publisher, pageCount, genre, publishingDate, costPrice, salePrice, isSequel));
-        System.out.println("\nКнига успешно добавлена!");
+        System.out.println("\nКнига успешно добавлена!\n");
     }
 
     public static void deleteBook(List<Book> books) {
+        System.out.println("===== Удаление книги =====\n");
 
+        Scanner scr = new Scanner(System.in);
+        boolean run = true;
+        while (run) {
+            System.out.println("Выберите параметр поиска для удаления книги: \n[1] - По названию книги\n[2] - По ФИО автора\n[3] - По жанру\n[4] - Выход");
+            int input = Integer.parseInt(scr.nextLine());
+            boolean run1 = true;
+
+            switch (input) {
+                case 1 -> {
+                    while (run1) {
+                        System.out.print("Введите название книги: ");
+                        String name = scr.nextLine();
+                        boolean exists = false;
+
+                        for (Book book : books) {
+                            if (book.getName().equals(name)) {
+                                System.out.println(book.getId() + ". " + book.getName() + " - " + book.getAuthor());
+                                exists = true;
+                            }
+                        }
+                        if (!exists) {
+                            boolean run2 = true;
+                            while (run2) {
+                                System.out.println("Книга с данным названием не найдена!\n[1] - Продолжить поиск\n[2] - Выйти из параметра удаления");
+                                int inp = Integer.parseInt(scr.nextLine());
+                                switch (inp) {
+                                    case 1 -> {
+                                        System.out.println();
+                                        run2 = false;
+                                    }
+                                    case 2 -> {
+                                        run1 = false;
+                                        run2 = false;
+                                    }
+                                    default -> System.out.println("Неверная команда!");
+                                }
+                            }
+                        } else {
+                            boolean run2 = true;
+                            int id;
+                            while (run2) {
+                                System.out.print("Введите id книги, которую хотите удалить: ");
+                                id = Integer.parseInt(scr.nextLine());
+
+                                if (id > books.size() || id < 0) {
+                                    System.out.println("Книги с таким id не существует!\n[1] - Продолжить ввод id\n[2] - Выйти из параметра удаления");
+                                    int inp = Integer.parseInt(scr.nextLine());
+                                    switch (inp) {
+                                        case 1 -> {
+                                            System.out.println();
+                                        }
+                                        case 2 -> {
+                                            run1 = false;
+                                            run2 = false;
+                                        }
+                                        default -> System.out.println("Неверная команда!");
+                                    }
+                                } else {
+                                    for (Book book : books) {
+                                        if (book.getId().equals(id)) {
+                                            books.remove(book);
+                                            ListOfBooks.count--;
+                                            System.out.println("Книга успешно удалена!");
+                                        }
+                                    }
+
+                                    for (Book book : books) {
+                                        if (book.getId() >= id) {
+                                            book.setId(book.getId() - 1);
+                                        }
+                                    }
+                                    run1 = false;
+                                    run2 = false;
+                                }
+                            }
+                        }
+                    }
+                }
+                case 2 -> {
+                    while (run1) {
+                        System.out.print("Введите ФИО автора: ");
+                        String author = scr.nextLine();
+                        boolean exists = false;
+
+                        for (Book book : books) {
+                            if (book.getAuthor().contains(WordUtils.capitalizeFully(author))) {
+                                System.out.println(book.getId() + ". " + book.getName() + " - " + book.getAuthor());
+                                exists = true;
+                            }
+                        }
+                        if (!exists) {
+                            boolean run2 = true;
+                            while (run2) {
+                                System.out.println("Книги с данным автором не найдены!\n[1] - Продолжить поиск\n[2] - Выйти из параметра удаления");
+                                int inp = Integer.parseInt(scr.nextLine());
+                                switch (inp) {
+                                    case 1 -> {
+                                        System.out.println();
+                                        run2 = false;
+                                    }
+                                    case 2 -> {
+                                        run1 = false;
+                                        run2 = false;
+                                    }
+                                    default -> System.out.println("Неверная команда!");
+                                }
+                            }
+                        } else {
+                            boolean run2 = true;
+                            int id;
+                            while (run2) {
+                                System.out.print("Введите id книги, которую хотите удалить: ");
+                                id = Integer.parseInt(scr.nextLine());
+
+                                if (id > books.size() || id < 0) {
+                                    System.out.println("Книги с таким id не существует!\n[1] - Продолжить ввод id\n[2] - Выйти из параметра удаления");
+                                    int inp = Integer.parseInt(scr.nextLine());
+                                    switch (inp) {
+                                        case 1 -> {
+                                            System.out.println();
+                                        }
+                                        case 2 -> {
+                                            run1 = false;
+                                            run2 = false;
+                                        }
+                                        default -> System.out.println("Неверная команда!");
+                                    }
+                                } else {
+                                    for (Book book : books) {
+                                        if (book.getId().equals(id)) {
+                                            books.remove(book);
+                                            ListOfBooks.count--;
+                                            System.out.println("Книга успешно удалена!");
+                                        }
+                                    }
+
+                                    for (Book book : books) {
+                                        if (book.getId() >= id) {
+                                            book.setId(book.getId() - 1);
+                                        }
+                                    }
+                                    run1 = false;
+                                    run2 = false;
+                                }
+                            }
+                        }
+                    }
+                }
+                case 3 -> {
+                    // Нужно доделать удаление по жанру...
+                }
+                case 4 -> run = false;
+                default -> System.out.println("Неверная команда!");
+            }
+        }
     }
 
-    public static void editBook(List<Book> books) {
+    public static void editBook (List < Book > books) {
 
     }
 }

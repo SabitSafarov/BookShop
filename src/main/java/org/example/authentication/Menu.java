@@ -9,6 +9,7 @@ public class Menu {
     public static void start() {
         boolean run = true;
         Scanner scr = new Scanner(System.in);
+        ListOfBooks listOfBooks = new ListOfBooks();
 
         while (run) {
             System.out.println("\t===== Добро пожаловать в магазин книг! =====\n");
@@ -23,9 +24,9 @@ public class Menu {
             System.out.println();
 
             switch (input) {
-                case "1" -> ListOfBooks.addBook();
-                case "2" -> ListOfBooks.deleteBook();
-                case "3" -> ListOfBooks.editBook();
+                case "1" -> listOfBooks.addBook();
+                case "2" -> listOfBooks.deleteBook();
+                case "3" -> listOfBooks.editBook();
             }
         }
     }
