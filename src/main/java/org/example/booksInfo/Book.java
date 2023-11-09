@@ -1,8 +1,9 @@
 package org.example.booksInfo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Book {
+public class Book implements Serializable {
 
     private Integer id;
     private String name;

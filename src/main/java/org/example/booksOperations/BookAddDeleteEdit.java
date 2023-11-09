@@ -62,7 +62,6 @@ public class BookAddDeleteEdit {
 
         System.out.print("Введите год издания: ");
         int publishingDate = Integer.parseInt(scr.nextLine());
-        ;
 
         System.out.print("Введите себестоимость книги: ");
         double costPrice = Double.parseDouble(scr.nextLine());
@@ -109,7 +108,7 @@ public class BookAddDeleteEdit {
                         boolean exists = false;
 
                         for (Book book : books) {
-                            if (book.getName().equals(name)) {
+                            if (book.getName().equalsIgnoreCase(name)) {
                                 System.out.println(book.getId() + ". " + book.getName() + " - " + book.getAuthor());
                                 exists = true;
                             }
@@ -117,7 +116,7 @@ public class BookAddDeleteEdit {
                         if (!exists) {
                             boolean run2 = true;
                             while (run2) {
-                                System.out.println("Книга с данным названием не найдена!\n[1] - Продолжить поиск\n[2] - Выйти из параметра удаления");
+                                System.out.println("\nКнига с данным названием не найдена!\n[1] - Продолжить поиск\n[2] - Выйти из параметра удаления");
                                 int inp = Integer.parseInt(scr.nextLine());
                                 switch (inp) {
                                     case 1 -> {
@@ -135,7 +134,7 @@ public class BookAddDeleteEdit {
                             boolean run2 = true;
                             int id;
                             while (run2) {
-                                System.out.print("Введите id книги, которую хотите удалить: ");
+                                System.out.print("\nВведите id книги, которую хотите удалить: ");
                                 id = Integer.parseInt(scr.nextLine());
 
                                 if (id > books.size() || id < 0) {
@@ -156,12 +155,13 @@ public class BookAddDeleteEdit {
                                         if (book.getId().equals(id)) {
                                             books.remove(book);
                                             ListOfBooks.count--;
-                                            System.out.println("Книга успешно удалена!");
+                                            System.out.println("Книга успешно удалена!\n");
+                                            break;
                                         }
                                     }
 
                                     for (Book book : books) {
-                                        if (book.getId() >= id) {
+                                        if (book.getId() > id) {
                                             book.setId(book.getId() - 1);
                                         }
                                     }
@@ -187,7 +187,7 @@ public class BookAddDeleteEdit {
                         if (!exists) {
                             boolean run2 = true;
                             while (run2) {
-                                System.out.println("Книги с данным автором не найдены!\n[1] - Продолжить поиск\n[2] - Выйти из параметра удаления");
+                                System.out.println("\nКниги с данным автором не найдены!\n[1] - Продолжить поиск\n[2] - Выйти из параметра удаления");
                                 int inp = Integer.parseInt(scr.nextLine());
                                 switch (inp) {
                                     case 1 -> {
@@ -205,7 +205,7 @@ public class BookAddDeleteEdit {
                             boolean run2 = true;
                             int id;
                             while (run2) {
-                                System.out.print("Введите id книги, которую хотите удалить: ");
+                                System.out.print("\nВведите id книги, которую хотите удалить: ");
                                 id = Integer.parseInt(scr.nextLine());
 
                                 if (id > books.size() || id < 0) {
@@ -226,12 +226,13 @@ public class BookAddDeleteEdit {
                                         if (book.getId().equals(id)) {
                                             books.remove(book);
                                             ListOfBooks.count--;
-                                            System.out.println("Книга успешно удалена!");
+                                            System.out.println("Книга успешно удалена!\n");
+                                            break;
                                         }
                                     }
 
                                     for (Book book : books) {
-                                        if (book.getId() >= id) {
+                                        if (book.getId() > id) {
                                             book.setId(book.getId() - 1);
                                         }
                                     }
@@ -243,7 +244,95 @@ public class BookAddDeleteEdit {
                     }
                 }
                 case 3 -> {
-                    // Нужно доделать удаление по жанру...
+                    while (run1) {
+                        String genre = "";
+                        while (genre.isEmpty()) {
+                            System.out.println("Выберите жанр книги: \n" +
+                                    "[1] - Роман\n[2] - Повесть\n[3] - Рассказ\n" +
+                                    "[4] - Сказки\n[5] - Лирика\n[6] - Трагедия\n" +
+                                    "[7] - Комедия\n[8] - Драма\n[9] - Поэма\n");
+                            int inp = Integer.parseInt(scr.nextLine());
+                            switch (inp) {
+                                case 1 -> genre = "Роман";
+                                case 2 -> genre = "Повесть";
+                                case 3 -> genre = "Рассказ";
+                                case 4 -> genre = "Сказки";
+                                case 5 -> genre = "Лирика";
+                                case 6 -> genre = "Трагедия";
+                                case 7 -> genre = "Комедия";
+                                case 8 -> genre = "Драма";
+                                case 9 -> genre = "Поэма";
+                                default -> System.out.println("Неверная команда!\n");
+                            }
+                        }
+
+                        boolean exists = false;
+
+                        for (Book book : books) {
+                            if (book.getGenre().equals(genre)) {
+                                System.out.println(book.getId() + ". " + book.getName() + " - " + book.getAuthor());
+                                exists = true;
+                            }
+                        }
+
+                        if (!exists) {
+                            boolean run2 = true;
+                            while (run2) {
+                                System.out.println("\nК сожалению книги с данным жанром сейчас отсутствуют!\n[1] - Продолжить поиск\n[2] - Выйти из параметра удаления");
+                                int inp1 = Integer.parseInt(scr.nextLine());
+                                switch (inp1) {
+                                    case 1 -> {
+                                        System.out.println();
+                                        run2 = false;
+                                    }
+                                    case 2 -> {
+                                        run1 = false;
+                                        run2 = false;
+                                    }
+                                    default -> System.out.println("Неверная команда!");
+                                }
+                            }
+                        } else {
+                            boolean run2 = true;
+                            int id;
+                            while (run2) {
+                                System.out.print("\nВведите id книги, которую хотите удалить: ");
+                                id = Integer.parseInt(scr.nextLine());
+
+                                if (id > books.size() || id < 0) {
+                                    System.out.println("Книги с таким id не существует!\n[1] - Продолжить ввод id\n[2] - Выйти из параметра удаления");
+                                    int inp1 = Integer.parseInt(scr.nextLine());
+                                    switch (inp1) {
+                                        case 1 -> {
+                                            System.out.println();
+                                        }
+                                        case 2 -> {
+                                            run1 = false;
+                                            run2 = false;
+                                        }
+                                        default -> System.out.println("Неверная команда!");
+                                    }
+                                } else {
+                                    for (Book book : books) {
+                                        if (book.getId().equals(id)) {
+                                            books.remove(book);
+                                            ListOfBooks.count--;
+                                            System.out.println("Книга успешно удалена!\n");
+                                            break;
+                                        }
+                                    }
+
+                                    for (Book book : books) {
+                                        if (book.getId() > id) {
+                                            book.setId(book.getId() - 1);
+                                        }
+                                    }
+                                    run1 = false;
+                                    run2 = false;
+                                }
+                            }
+                        }
+                    }
                 }
                 case 4 -> run = false;
                 default -> System.out.println("Неверная команда!");
@@ -251,7 +340,7 @@ public class BookAddDeleteEdit {
         }
     }
 
-    public static void editBook (List < Book > books) {
+    public static void editBook (List<Book> books) {
 
     }
 }
