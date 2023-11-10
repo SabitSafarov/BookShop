@@ -1,6 +1,8 @@
 package org.example.booksInfo;
 
-import org.example.booksOperations.BookAddDeleteEdit;
+import org.example.booksOperations.BookAdd;
+import org.example.booksOperations.BookDelete;
+import org.example.booksOperations.BookEdit;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -43,15 +45,15 @@ public class ListOfBooks implements AutoCloseable, Serializable {
     }
 
     public void addBook() {
-        BookAddDeleteEdit.addBook(books);
+        BookAdd.addBook(books);
     }
 
     public void deleteBook() {
-        BookAddDeleteEdit.deleteBook(books);
+        BookDelete.deleteBook(books);
     }
 
     public void editBook() {
-        BookAddDeleteEdit.editBook(books);
+        BookEdit.editBook(books);
     }
 
 }
