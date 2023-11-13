@@ -14,10 +14,11 @@ public class Book implements Serializable {
     private int publishingDate;
     private double costPrice;
     private double salePrice;
+    private int inStock;
     private boolean isSequel;
 
     public Book(Integer id, String name, String author, String publisher, Integer pageCounts, String genre, int publishingDate,
-                double costPrice, double salePrice, boolean isSequel) {
+                double costPrice, double salePrice, int inStock, boolean isSequel) {
         this.id = id;
         this.name = name;
         this.author = author;
@@ -65,6 +66,7 @@ public class Book implements Serializable {
     public double getSalePrice() {
         return salePrice;
     }
+    public int getInStock() { return inStock; }
 
     public boolean isSequel() {
         return isSequel;
@@ -106,6 +108,8 @@ public class Book implements Serializable {
         this.salePrice = salePrice;
     }
 
+    public void setInStock(int inStock) { this.inStock = inStock; }
+
     public void setSequel(boolean sequel) {
         isSequel = sequel;
     }
@@ -114,6 +118,7 @@ public class Book implements Serializable {
     public String toString() {
         return "ID: " + id + "\nНазвание: " + name + "\nАвтор: " + author + "\nИздательство: " + publisher + "\nКоличество страниц: "
                 + pageCounts + "\nЖанр: " + genre + "\nГод издания: " + publishingDate + "\nСебестоимость книги: " + costPrice + "$"
-                + "\nЦена для продажи: " + salePrice + "$" + (isSequel() ? "\nКнига является продолжением" : "\nКнига не является продолжением");
+                + "\nЦена для продажи: " + salePrice + "$" + "\nВ наличии: " + inStock + " шт."
+                + (isSequel() ? "\nКнига является продолжением" : "\nКнига не является продолжением");
     }
 }

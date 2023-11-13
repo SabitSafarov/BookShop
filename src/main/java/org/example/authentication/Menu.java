@@ -27,6 +27,7 @@ public class Menu {
                 case "1" -> listOfBooks.addBook();
                 case "2" -> listOfBooks.deleteBook();
                 case "3" -> listOfBooks.editBook();
+                case "8" -> listOfBooks.searchBook();
                 case "0" -> {
                     try {
                         listOfBooks.close();

@@ -4,13 +4,14 @@ import org.apache.commons.text.WordUtils;
 import org.example.booksInfo.Book;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BookEdit {
 
-    public static void editBook(List<Book> books) {
+    public static void editBook(List<Book> books, Map<String, Integer> bookStoreWindow) {
         System.out.println("===== Редактирование книги =====\n");
 
         Scanner scr = new Scanner(System.in);
@@ -71,7 +72,7 @@ public class BookEdit {
                                         default -> System.out.println("Неверная команда!");
                                     }
                                 } else {
-                                    editInfoBooks(id, books);
+                                    editInfoBooks(id, books, bookStoreWindow);
                                     run1 = false;
                                     run2 = false;
                                 }
@@ -129,7 +130,7 @@ public class BookEdit {
                                         default -> System.out.println("Неверная команда!");
                                     }
                                 } else {
-                                    editInfoBooks(id, books);
+                                    editInfoBooks(id, books, bookStoreWindow);
                                     run1 = false;
                                     run2 = false;
                                 }
@@ -143,7 +144,7 @@ public class BookEdit {
         }
     }
 
-    private static void editInfoBooks(int id, List<Book> books) {
+    private static void editInfoBooks(int id, List<Book> books, Map<String, Integer> bookStoreWindow) {
         Scanner scr = new Scanner(System.in);
         boolean run = true;
         while (run) {
@@ -159,6 +160,8 @@ public class BookEdit {
 
                     for (Book book : books) {
                         if (book.getId().equals(id)) {
+                            bookStoreWindow.put(newName, book.getInStock());
+                            bookStoreWindow.remove(book.getName());
                             book.setName(newName);
                             System.out.println("Данные о названии книги успешно отредактированы!");
                             break;

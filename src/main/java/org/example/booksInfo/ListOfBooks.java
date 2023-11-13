@@ -3,23 +3,34 @@ package org.example.booksInfo;
 import org.example.booksOperations.BookAdd;
 import org.example.booksOperations.BookDelete;
 import org.example.booksOperations.BookEdit;
+import org.example.booksOperations.BookSearch;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ListOfBooks implements AutoCloseable, Serializable {
     private static List<Book> books;
+    private static Map<String, Integer> bookStoreWindow;
     public static int count;
 
     public ListOfBooks() {
         books = new ArrayList<>();
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("src/main/resources/books.bin"))) {
+
             Object book;
             while ((book = inputStream.readObject()) != null) {
                 books.add((Book) book);
                 count++;
             }
+
+            bookStoreWindow = new HashMap<>();
+            for (Book book1 : books) {
+                bookStoreWindow.put(book1.getName(), book1.getInStock());
+            }
+
         } catch (IOException e) {
             System.out.println("File not found. Created new.");
         } catch (ClassNotFoundException e) {
@@ -45,15 +56,19 @@ public class ListOfBooks implements AutoCloseable, Serializable {
     }
 
     public void addBook() {
-        BookAdd.addBook(books);
+        BookAdd.addBook(books, bookStoreWindow);
     }
 
     public void deleteBook() {
-        BookDelete.deleteBook(books);
+        BookDelete.deleteBook(books, bookStoreWindow);
     }
 
     public void editBook() {
-        BookEdit.editBook(books);
+        BookEdit.editBook(books, bookStoreWindow);
+    }
+
+    public void searchBook() {
+        BookSearch.searchBook(books);
     }
 
 }

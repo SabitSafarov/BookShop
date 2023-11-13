@@ -5,11 +5,12 @@ import org.example.booksInfo.Book;
 import org.example.booksInfo.ListOfBooks;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class BookDelete {
 
-    public static void deleteBook(List<Book> books) {
+    public static void deleteBook(List<Book> books, Map<String, Integer> bookStoreWindow) {
         System.out.println("===== Удаление книги =====\n");
 
         Scanner scr = new Scanner(System.in);
@@ -72,6 +73,7 @@ public class BookDelete {
                                 } else {
                                     for (Book book : books) {
                                         if (book.getId().equals(id)) {
+                                            bookStoreWindow.remove(book.getName());
                                             books.remove(book);
                                             ListOfBooks.count--;
                                             System.out.println("Книга успешно удалена!\n");
@@ -143,6 +145,7 @@ public class BookDelete {
                                 } else {
                                     for (Book book : books) {
                                         if (book.getId().equals(id)) {
+                                            bookStoreWindow.remove(book.getName());
                                             books.remove(book);
                                             ListOfBooks.count--;
                                             System.out.println("Книга успешно удалена!\n");
@@ -234,6 +237,7 @@ public class BookDelete {
                                 } else {
                                     for (Book book : books) {
                                         if (book.getId().equals(id)) {
+                                            bookStoreWindow.remove(book.getName());
                                             books.remove(book);
                                             ListOfBooks.count--;
                                             System.out.println("Книга успешно удалена!\n");

@@ -4,13 +4,14 @@ import org.example.booksInfo.Book;
 import org.example.booksInfo.ListOfBooks;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BookAdd {
 
-    public static void addBook(List<Book> books) {
+    public static void addBook(List<Book> books, Map<String, Integer> bookStoreWindow) {
         System.out.println("===== Добавление новой книги =====\n");
 
         int id = ++ListOfBooks.count;
@@ -68,6 +69,9 @@ public class BookAdd {
         System.out.print("Введите цену для продажи: ");
         double salePrice = Double.parseDouble(scr.nextLine());
 
+        System.out.print("Введите количество книг в наличии: ");
+        int inStock = Integer.parseInt(scr.nextLine());
+
         boolean isSequel = false;
         boolean run = true;
         while (run) {
@@ -85,7 +89,8 @@ public class BookAdd {
             }
         }
 
-        books.add(new Book(id, name, author, publisher, pageCount, genre, publishingDate, costPrice, salePrice, isSequel));
+        books.add(new Book(id, name, author, publisher, pageCount, genre, publishingDate, costPrice, salePrice, inStock, isSequel));
+        bookStoreWindow.put(name, inStock);
         System.out.println("\nКнига успешно добавлена!\n");
     }
 }
